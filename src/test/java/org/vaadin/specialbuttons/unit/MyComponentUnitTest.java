@@ -1,9 +1,6 @@
-package org.vaadin.holdbutton.unit;
+package org.vaadin.specialbuttons.unit;
 
-import com.vaadin.ui.Notification;
 import org.junit.Test;
-
-import java.time.LocalDate;
 
 public class MyComponentUnitTest {
 

@@ -146,7 +146,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package>org.vaadin.holdbutton.*</Export-Package>
+                        <Export-Package>org.vaadin.specialbuttons.*</Export-Package>
                     </instructions>
                 </configuration>
                 <executions>

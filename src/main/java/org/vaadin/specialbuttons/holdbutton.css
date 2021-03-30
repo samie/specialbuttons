@@ -40,3 +40,8 @@ div.hold-button {
 .hold-button .content:hover {
   cursor: pointer;
 }
+
+.hold-button.not-active {
+    opacity:0.5;
+    filter: saturate(0%);
+}

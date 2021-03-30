@@ -1,11 +1,11 @@
-package org.vaadin.holdbutton.it;
+package org.vaadin.specialbuttons.it;
 
 import com.vaadin.testbench.elements.ButtonElement;
 import com.vaadin.testbench.elements.NotificationElement;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.vaadin.holdbutton.BasicHoldButtonUsageUI;
+import org.vaadin.specialbuttons.BasicHoldButtonUsageUI;
 
 /**
  * A simple example that uses TestBench to do a browser level test for a

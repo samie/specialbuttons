@@ -1,4 +1,4 @@
-package org.vaadin.holdbutton.uiserver;
+package org.vaadin.specialbuttons.uiserver;
 
 import org.vaadin.addonhelpers.TServer;
 

@@ -1,4 +1,4 @@
-package org.vaadin.holdbutton;
+package org.vaadin.specialbuttons;
 
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
@@ -7,7 +7,6 @@ import com.vaadin.shared.Registration;
 import com.vaadin.shared.ui.JavaScriptComponentState;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Notification;
 
 @JavaScript("holdbutton.js")
 @StyleSheet("holdbutton.css")
@@ -36,13 +35,13 @@ public class HoldButton extends AbstractJavaScriptComponent {
 
 
     @Override
-    protected MyComponentState getState() {
+    protected HoldButtonState getState() {
         return getState(false);
     }
 
     @Override
-    protected MyComponentState getState(boolean markAsDirty) {
-        return (MyComponentState)super.getState(markAsDirty);
+    protected HoldButtonState getState(boolean markAsDirty) {
+        return (HoldButtonState)super.getState(markAsDirty);
     }
 
     @Override
@@ -67,8 +66,17 @@ public class HoldButton extends AbstractJavaScriptComponent {
         return this.addListener(Button.ClickEvent.class, listener, Button.ClickListener.BUTTON_CLICK_METHOD);
     }
 
-    public static class MyComponentState extends JavaScriptComponentState {
+    public boolean isActive() {
+        return getState(false).active;
+    }
+
+    public void setActive(boolean active) {
+        getState(true).active = active;
+    }
+
+    public static class HoldButtonState extends JavaScriptComponentState {
         public int holdtimems = DEFAULT_HOLD_TIME_MS;
         public String buttonCaption = null;
+        public boolean active = true;
     }
 }

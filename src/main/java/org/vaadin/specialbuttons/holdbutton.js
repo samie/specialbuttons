@@ -1,4 +1,4 @@
-window.org_vaadin_holdbutton_HoldButton = function() {
+window.org_vaadin_specialbuttons_HoldButton = function() {
 
     "use strict";
 
@@ -14,6 +14,13 @@ window.org_vaadin_holdbutton_HoldButton = function() {
      // Handle changes from the server-side
      this.onStateChange = function() {
         var state = connector.getState();
+
+        if (state.active) {
+            connector.getElement().className = "hold-button";
+        } else {
+            connector.getElement().className = "hold-button not-active";
+        }
+
         connector.content.style.transitionDuration = state.holdtimems +"ms";
         if (state.width){
           connector.getElement().width = state.width;
@@ -43,6 +50,7 @@ window.org_vaadin_holdbutton_HoldButton = function() {
 
     this.pressingDown = function(e) {
       // Start the timer
+      connector.getElement().className = "hold-button";
       connector.getElement().classList.add("animate");
       connector.pressHoldEndTime = Date.now() + connector.getState().holdtimems;
       requestAnimationFrame(connector.timer);

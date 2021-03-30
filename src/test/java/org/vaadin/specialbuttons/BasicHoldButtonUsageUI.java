@@ -1,4 +1,4 @@
-package org.vaadin.holdbutton;
+package org.vaadin.specialbuttons;
 
 import com.vaadin.server.ClassResource;
 import com.vaadin.ui.Button;
@@ -14,6 +14,8 @@ import org.vaadin.addonhelpers.AbstractTest;
  */
 public class BasicHoldButtonUsageUI extends AbstractTest {
 
+    private boolean buttonActive;
+
     @Override
     public Component getTestComponent() {
         HorizontalLayout l = new HorizontalLayout();
@@ -24,7 +26,8 @@ public class BasicHoldButtonUsageUI extends AbstractTest {
         btn.setHeight("200px");
 
         btn.addClickListener(e -> {
-            Notification.show("Click ok");
+            Notification.show("Click ok: "+btn.isActive());
+            btn.setActive(!btn.isActive());
         });
 
         Button start = new Button("3s delay", e -> {btn.setHoldTime(3000);});

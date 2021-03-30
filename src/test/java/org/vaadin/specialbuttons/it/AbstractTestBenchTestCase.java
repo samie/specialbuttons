@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.vaadin.holdbutton.it;
+package org.vaadin.specialbuttons.it;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import com.machinepublishers.jbrowserdriver.RequestHeaders;
