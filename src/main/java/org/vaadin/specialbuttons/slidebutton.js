@@ -36,7 +36,6 @@ window.org_vaadin_specialbuttons_SlideButton = function() {
     this.dragStart = function(e) {
         // Start drag
         connector.dragging = true;
-        connector.getElement().className = "slide-button";
         connector.slider.style.transitionDuration = "0s";
         if (e.type === "touchstart") {
           connector.initialX = e.touches[0].clientX;

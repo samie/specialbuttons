@@ -50,7 +50,6 @@ window.org_vaadin_specialbuttons_HoldButton = function() {
 
     this.pressingDown = function(e) {
       // Start the timer
-      connector.getElement().className = "hold-button";
       connector.getElement().classList.add("animate");
       connector.pressHoldEndTime = Date.now() + connector.getState().holdtimems;
       requestAnimationFrame(connector.timer);
