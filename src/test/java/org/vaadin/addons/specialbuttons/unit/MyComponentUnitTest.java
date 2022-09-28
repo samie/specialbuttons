@@ -1,4 +1,4 @@
-package org.vaadin.specialbuttons.unit;
+package org.vaadin.addons.specialbuttons.unit;
 
 import org.junit.Test;
 

@@ -1,10 +1,7 @@
-package org.vaadin.specialbuttons;
+package org.vaadin.addons.specialbuttons;
 
 import com.vaadin.server.ClassResource;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
+import com.vaadin.ui.*;
 import org.vaadin.addonhelpers.AbstractTest;
 
 /**
@@ -19,7 +16,18 @@ public class BasicHoldButtonUsageUI extends AbstractTest {
     @Override
     public Component getTestComponent() {
         HorizontalLayout l = new HorizontalLayout();
+// Create a layout for other components
+        VerticalLayout layout = new VerticalLayout();
 
+// Use TextField for standard text input
+        TextField textField = new TextField("Your name");
+
+// Button click listeners can be defined as lambda expressions
+        Button button = new Button("Say hello",
+                e -> Notification.show("Hello!"));
+
+// Add the web components to the HTML element
+        layout.addComponents(textField, button);
         HoldButton btn = new HoldButton(null, 500);
         btn.setIcon(new ClassResource("mic.png"));
         btn.setWidth("200px");

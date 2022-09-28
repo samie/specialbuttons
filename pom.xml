@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.vaadin.addons</groupId>
-    <artifactId>holdbutton</artifactId>
-    <name>HoldButton</name>
+    <artifactId>specialbuttons</artifactId>
+    <name>SpecialButtons</name>
     <version>3.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <organization>
@@ -23,14 +23,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <scm>
-        <url>git://github.com/samie/holdbutton.git</url>
-        <connection>scm:git:git://github.com/samie/holdbutton.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:/samie/holdbutton.git</developerConnection>
+        <url>git://github.com/samie/specialbuttons.git</url>
+        <connection>scm:git:git://github.com/samie/specialbuttons.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:/samie/specialbuttons.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/samie/holdbutton/issues</url>
+        <url>https://github.com/samie/specialbuttons/issues</url>
     </issueManagement>
     <licenses>
         <license>
@@ -199,6 +199,29 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.15</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <descriptor>src/main/assembly/assembly.xml</descriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <mainClass>org.vaadin.addons.specialbuttons.uiserver.Server</mainClass>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

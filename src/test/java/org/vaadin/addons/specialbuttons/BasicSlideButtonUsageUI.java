@@ -1,4 +1,4 @@
-package org.vaadin.specialbuttons;
+package org.vaadin.addons.specialbuttons;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;

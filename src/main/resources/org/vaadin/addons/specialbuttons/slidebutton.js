@@ -1,4 +1,4 @@
-window.org_vaadin_specialbuttons_SlideButton = function() {
+window.org_vaadin_addons_specialbuttons_SlideButton = function() {
 
     "use strict";
 

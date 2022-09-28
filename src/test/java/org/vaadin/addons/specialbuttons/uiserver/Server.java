@@ -1,4 +1,4 @@
-package org.vaadin.specialbuttons.uiserver;
+package org.vaadin.addons.specialbuttons.uiserver;
 
 import org.vaadin.addonhelpers.TServer;
 

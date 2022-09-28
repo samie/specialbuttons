@@ -1,4 +1,4 @@
-package org.vaadin.specialbuttons;
+package org.vaadin.addons.specialbuttons;
 
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
@@ -8,41 +8,58 @@ import com.vaadin.shared.ui.JavaScriptComponentState;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 import com.vaadin.ui.Button;
 
-@JavaScript("slidebutton.js")
-@StyleSheet("slidebutton.css")
-public class SlideButton extends AbstractJavaScriptComponent {
+@JavaScript("holdbutton.js")
+@StyleSheet("holdbutton.css")
+public class HoldButton extends AbstractJavaScriptComponent {
 
-    private static final String HOLD_BUTTON_STYLE_NAME = "slide-button";
+    public static final int DEFAULT_HOLD_TIME_MS = 1000;
+    private static final String HOLD_BUTTON_STYLE_NAME = "hold-button";
 
-    public SlideButton() {
+    public HoldButton() {
         setPrimaryStyleName(HOLD_BUTTON_STYLE_NAME);
-        addFunction("afterSlideClick", e -> {
+        addFunction("afterHoldClick", e -> {
             this.fireEvent(new Button.ClickEvent(this));
         });
     }
 
-    public SlideButton(String caption) {
+    public HoldButton(String caption) {
         this();
         setCaption(caption);
     }
 
-    public SlideButton(String caption, int holdMs) {
+
+    public HoldButton(String caption, int holdMs) {
         this(caption);
+        setHoldTime(holdMs);
     }
 
+
     @Override
-    protected SlideButtonState getState() {
+    protected HoldButtonState getState() {
         return getState(false);
     }
 
     @Override
-    protected SlideButtonState getState(boolean markAsDirty) {
-        return (SlideButtonState)super.getState(markAsDirty);
+    protected HoldButtonState getState(boolean markAsDirty) {
+        return (HoldButtonState)super.getState(markAsDirty);
+    }
+
+    @Override
+    public void setIcon(Resource icon) {
+        this.setResource("buttonIcon", icon);
     }
 
     @Override
     public void setCaption(String caption) {
         getState(true).buttonCaption = caption;
+    }
+
+    public int getHoldTime() {
+        return getState().holdtimems;
+    }
+
+    public void setHoldTime(int holdTime) {
+        getState(true).holdtimems = holdTime;
     }
 
     public Registration addClickListener(Button.ClickListener listener) {
@@ -57,7 +74,8 @@ public class SlideButton extends AbstractJavaScriptComponent {
         getState(true).active = active;
     }
 
-    public static class SlideButtonState extends JavaScriptComponentState {
+    public static class HoldButtonState extends JavaScriptComponentState {
+        public int holdtimems = DEFAULT_HOLD_TIME_MS;
         public String buttonCaption = null;
         public boolean active = true;
     }

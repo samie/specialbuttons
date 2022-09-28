@@ -1,4 +1,4 @@
-window.org_vaadin_specialbuttons_HoldButton = function() {
+window.org_vaadin_addons_specialbuttons_HoldButton = function() {
 
     "use strict";
 
