@@ -1,9 +1,10 @@
-[![Build Status](https://travis-ci.org/samie/cancellablebutton.svg?branch=master)](https://travis-ci.org/samie/holdbutton)
+[![Build Status](https://travis-ci.org/samie/special-buttons.svg?branch=master)](https://travis-ci.org/samie/holdbutton)
 
-# HoldButton add-on for Vaadin
+# Specialized buttons add-on for Vaadin 8
 
-HoldButton implements a Button that needs to be pressed for a specified time.
-
+This addon implements some specialized buttons: 
+* HoldButton - a Button that needs to be pressed for a specified time.
+* SlideButton - a Button simulating "swipe to unlock" style.
 
 ## Development instructions 
 
