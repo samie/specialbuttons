@@ -1,4 +1,4 @@
-div.hold-button {
+hold-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,7 +6,7 @@ div.hold-button {
   border-radius: 7px;
 }
 
-.hold-button .content {
+hold-button div.content {
   background-size:cover;
   width: 50%;
   height: 50%;
@@ -18,30 +18,31 @@ div.hold-button {
   transform: scale(1);
 }
 
-.hold-button img.icon {
+hold-button img.icon {
     width: 100px;
     height: 100px;
 }
 
-.hold-button.animate .content {
+hold-button.animate div.content {
   transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: scale(1.5);
 }
 
-.hold-button.endstate .content{
+hold-button.endstate div.content{
   transition-duration: 200ms;
   border-color: white !important;
 }
 
-.hold-button .content:active {
+hold-button div.content:active {
   border-color: red;
   background-color: #F2F5EA;
 }
-.hold-button .content:hover {
+
+hold-button div.content:hover {
   cursor: pointer;
 }
 
-.hold-button.not-active {
+hold-button.not-active {
     opacity:0.5;
     filter: saturate(0%);
 }

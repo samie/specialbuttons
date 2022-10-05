@@ -1,0 +1,45 @@
+package org.vaadin.addons.specialbuttons;
+
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
+
+/** Test view for manual and automated testing of the component.
+ *
+ */
+@Route("")
+public class ExampleView extends VerticalLayout {
+
+    public ExampleView() {
+
+        HoldButton holdButton = new HoldButton(null, 500);
+        holdButton.setIcon(new ClassResource(this, "mic.png"));
+        holdButton.setWidth("200px");
+        holdButton.setHeight("200px");
+
+        holdButton.addClickListener(e -> {
+            Notification.show("Click ok: "+holdButton.isActive());
+            holdButton.setActive(!holdButton.isActive());
+        });
+
+        Button start = new Button("3s delay", e -> holdButton.setHoldTime(3000));
+        Button start1 = new Button("0.5s delay", e -> holdButton.setHoldTime(500));
+        Button start2 = new Button("0s delay", e -> holdButton.setHoldTime(0));
+        Button start3 = new Button("Default delay", e -> holdButton.setHoldTime(HoldButton.DEFAULT_HOLD_TIME_MS));
+
+
+        add(new HorizontalLayout(holdButton,start,start1,start2,start3));
+
+        SlideButton slideButton = new SlideButton("Activate mic");
+        slideButton.setWidth("400px");
+        slideButton.setHeight("40px");
+
+        slideButton.addClickListener(e -> {
+            Notification.show("Click ok: "+slideButton.isActive());
+            slideButton.setActive(!slideButton.isActive());
+        });
+        add(slideButton);
+    }
+}

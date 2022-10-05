@@ -1,25 +1,26 @@
 package org.vaadin.addons.specialbuttons;
 
-import com.vaadin.annotations.JavaScript;
-import com.vaadin.annotations.StyleSheet;
-import com.vaadin.server.Resource;
-import com.vaadin.shared.Registration;
-import com.vaadin.shared.ui.JavaScriptComponentState;
-import com.vaadin.ui.AbstractJavaScriptComponent;
-import com.vaadin.ui.Button;
+import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
+import com.vaadin.flow.server.AbstractStreamResource;
 
-@JavaScript("holdbutton.js")
-@StyleSheet("holdbutton.css")
-public class HoldButton extends AbstractJavaScriptComponent {
+@JsModule("./hold-button.ts")
+@Tag("hold-button")
+@CssImport(value = "./hold-button.css")
+public class HoldButton extends Component implements HasStyle, HasSize, ClickNotifier {
 
     public static final int DEFAULT_HOLD_TIME_MS = 1000;
     private static final String HOLD_BUTTON_STYLE_NAME = "hold-button";
 
     public HoldButton() {
-        setPrimaryStyleName(HOLD_BUTTON_STYLE_NAME);
-        addFunction("afterHoldClick", e -> {
-            this.fireEvent(new Button.ClickEvent(this));
-        });
+        setClassName(HOLD_BUTTON_STYLE_NAME);
+    }
+
+    @ClientCallable
+    public void afterHoldClick() {
+        this.fireEvent(new ClickEvent(this));
     }
 
     public HoldButton(String caption) {
@@ -33,50 +34,31 @@ public class HoldButton extends AbstractJavaScriptComponent {
         setHoldTime(holdMs);
     }
 
-
-    @Override
-    protected HoldButtonState getState() {
-        return getState(false);
+    public void setIcon(AbstractStreamResource resource) {
+        getElement().setAttribute("icon", resource);
     }
 
-    @Override
-    protected HoldButtonState getState(boolean markAsDirty) {
-        return (HoldButtonState)super.getState(markAsDirty);
-    }
 
-    @Override
-    public void setIcon(Resource icon) {
-        this.setResource("buttonIcon", icon);
-    }
-
-    @Override
     public void setCaption(String caption) {
-        getState(true).buttonCaption = caption;
+        getElement().setProperty("buttonCaption", caption);
     }
 
     public int getHoldTime() {
-        return getState().holdtimems;
+        return getElement().getProperty("holdtimems", DEFAULT_HOLD_TIME_MS);
     }
 
     public void setHoldTime(int holdTime) {
-        getState(true).holdtimems = holdTime;
-    }
-
-    public Registration addClickListener(Button.ClickListener listener) {
-        return this.addListener(Button.ClickEvent.class, listener, Button.ClickListener.BUTTON_CLICK_METHOD);
+        getElement().getProperty("holdtimems", holdTime);
     }
 
     public boolean isActive() {
-        return getState(false).active;
+        return "true".equals(getElement().getProperty("active"));
     }
 
     public void setActive(boolean active) {
-        getState(true).active = active;
+        getElement().setProperty("active", active);
     }
 
-    public static class HoldButtonState extends JavaScriptComponentState {
-        public int holdtimems = DEFAULT_HOLD_TIME_MS;
-        public String buttonCaption = null;
-        public boolean active = true;
-    }
+
 }
+
