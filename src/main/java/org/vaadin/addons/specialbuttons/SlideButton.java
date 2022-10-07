@@ -6,18 +6,17 @@ import com.vaadin.flow.component.dependency.JsModule;
 
 @JsModule("./slide-button.ts")
 @Tag("slide-button")
-@CssImport(value = "./slide-button.css")
-public class SlideButton extends Component implements HasStyle, HasSize, ClickNotifier {
+@CssImport("./slide-button.css")
+public class SlideButton  extends AbstractButton {
 
-    private static final String HOLD_BUTTON_STYLE_NAME = "slide-button";
 
     public SlideButton() {
-        setClassName(HOLD_BUTTON_STYLE_NAME);
+        setActive(true);
     }
 
     @ClientCallable
     public void afterSlideClick() {
-        this.fireEvent(new ClickEvent(this));
+        this.fireEvent(new ClickEvent(this, true));
     }
 
     public SlideButton(String caption) {
@@ -30,8 +29,12 @@ public class SlideButton extends Component implements HasStyle, HasSize, ClickNo
     }
 
 
+    public String getCaption() {
+        return getElement().getProperty("caption");
+    }
+
     public void setCaption(String caption) {
-        getElement().setProperty("buttonCaption",caption);
+        getElement().setProperty("caption",caption);
     }
 
 

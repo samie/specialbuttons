@@ -10,15 +10,9 @@ import com.vaadin.flow.server.StreamResource;
  * This is implementation based on https://vaadin.com/docs/latest/application/resources/#class-resources
  */
 public class ClassResource extends StreamResource {
-    public ClassResource(String resource, String publicName) {
-        super(publicName, () -> ClassResource.class.getResourceAsStream(resource));
-    }
 
-    public ClassResource(String resource) {
-        super(resource, () -> ClassResource.class.getResourceAsStream(resource));
-    }
     public ClassResource(Object obj, String resource) {
-        super(resource, () -> obj.getClass().getResourceAsStream(resource));
+        this(obj.getClass(), resource, resource);
     }
 
     public ClassResource(Class clazz, String resource, String publicName) {

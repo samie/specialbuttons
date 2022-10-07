@@ -5,22 +5,23 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.server.AbstractStreamResource;
+import com.vaadin.flow.shared.Registration;
 
-@JsModule("./hold-button.ts")
 @Tag("hold-button")
-@CssImport(value = "./hold-button.css")
-public class HoldButton extends Component implements HasStyle, HasSize, ClickNotifier {
+@JsModule("./hold-button.ts")
+@CssImport("./hold-button.css")
+public class HoldButton extends AbstractButton {
 
     public static final int DEFAULT_HOLD_TIME_MS = 1000;
-    private static final String HOLD_BUTTON_STYLE_NAME = "hold-button";
 
     public HoldButton() {
-        setClassName(HOLD_BUTTON_STYLE_NAME);
+        setHoldTime(DEFAULT_HOLD_TIME_MS);
+        setActive(true);
     }
 
     @ClientCallable
     public void afterHoldClick() {
-        this.fireEvent(new ClickEvent(this));
+        this.fireEvent(new ClickEvent(this, true));
     }
 
     public HoldButton(String caption) {
@@ -44,15 +45,15 @@ public class HoldButton extends Component implements HasStyle, HasSize, ClickNot
     }
 
     public int getHoldTime() {
-        return getElement().getProperty("holdtimems", DEFAULT_HOLD_TIME_MS);
+        return getElement().getProperty("holdtime", DEFAULT_HOLD_TIME_MS);
     }
 
     public void setHoldTime(int holdTime) {
-        getElement().getProperty("holdtimems", holdTime);
+        getElement().setProperty("holdtime", holdTime);
     }
 
     public boolean isActive() {
-        return "true".equals(getElement().getProperty("active"));
+        return "true".equals(getElement().getProperty("active", "true"));
     }
 
     public void setActive(boolean active) {
