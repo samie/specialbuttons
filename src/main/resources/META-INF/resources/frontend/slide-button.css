@@ -1,4 +1,9 @@
 
+
+slide-button[disabled] {
+    pointer-events: none;
+  }
+  
 slide-button::part(container) {
     position: relative;
     display: flex;

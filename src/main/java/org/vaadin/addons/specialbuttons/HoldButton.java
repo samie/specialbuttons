@@ -21,7 +21,7 @@ public class HoldButton extends AbstractButton {
 
     @ClientCallable
     public void afterHoldClick() {
-        this.fireEvent(new ClickEvent(this, true));
+        fireEvent(new ClickEvent(this, true));
     }
 
     public HoldButton(String caption) {

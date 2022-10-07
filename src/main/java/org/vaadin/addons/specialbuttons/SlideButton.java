@@ -16,7 +16,7 @@ public class SlideButton  extends AbstractButton {
 
     @ClientCallable
     public void afterSlideClick() {
-        this.fireEvent(new ClickEvent(this, true));
+        fireEvent(new ClickEvent(this, true));
     }
 
     public SlideButton(String caption) {

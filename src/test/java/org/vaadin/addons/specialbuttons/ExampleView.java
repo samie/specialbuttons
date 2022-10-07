@@ -14,6 +14,8 @@ public class ExampleView extends VerticalLayout {
 
     public ExampleView() {
 
+        // Hold button
+
         HoldButton holdButton = new HoldButton(null, 2000);
         holdButton.setIcon(new ClassResource(this, "mic.png"));
         holdButton.setWidth("200px");
@@ -28,9 +30,10 @@ public class ExampleView extends VerticalLayout {
         Button start1 = new Button("0.5s delay", e -> holdButton.setHoldTime(500));
         Button start2 = new Button("0s delay", e -> holdButton.setHoldTime(0));
         Button start3 = new Button("Default delay", e -> holdButton.setHoldTime(HoldButton.DEFAULT_HOLD_TIME_MS));
+        Button enableDisable = new Button("Enable/Disable", e -> holdButton.setEnabled(!holdButton.isEnabled()));
+        add(new HorizontalLayout(holdButton,start,start1,start2,start3, enableDisable));
 
-
-        add(new HorizontalLayout(holdButton,start,start1,start2,start3));
+        // Slide button
 
         SlideButton slideButton = new SlideButton("Activate mic");
         slideButton.setWidth("400px");
@@ -40,6 +43,9 @@ public class ExampleView extends VerticalLayout {
             Notification.show("Slide done: "+slideButton.isActive());
             slideButton.setActive(!slideButton.isActive());
         });
-        add(slideButton);
+        enableDisable = new Button("Enable/Disable", e -> slideButton.setEnabled(!slideButton.isEnabled()));
+
+
+        add(new HorizontalLayout(slideButton, enableDisable));
     }
 }

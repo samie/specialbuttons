@@ -5,6 +5,10 @@ hold-button {
   overflow: hidden;
 }
 
+hold-button[disabled] {
+  pointer-events: none;
+}
+
 hold-button::part(content) {
   cursor: pointer;
   width: 50%;
