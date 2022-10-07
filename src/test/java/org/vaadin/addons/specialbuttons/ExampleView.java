@@ -14,13 +14,13 @@ public class ExampleView extends VerticalLayout {
 
     public ExampleView() {
 
-        HoldButton holdButton = new HoldButton(null, 500);
+        HoldButton holdButton = new HoldButton(null, 2000);
         holdButton.setIcon(new ClassResource(this, "mic.png"));
         holdButton.setWidth("200px");
         holdButton.setHeight("200px");
 
         holdButton.addClickListener(e -> {
-            Notification.show("Click ok: "+holdButton.isActive());
+            Notification.show("Hold done: "+holdButton.isActive());
             holdButton.setActive(!holdButton.isActive());
         });
 
@@ -37,7 +37,7 @@ public class ExampleView extends VerticalLayout {
         slideButton.setHeight("40px");
 
         slideButton.addClickListener(e -> {
-            Notification.show("Click ok: "+slideButton.isActive());
+            Notification.show("Slide done: "+slideButton.isActive());
             slideButton.setActive(!slideButton.isActive());
         });
         add(slideButton);
