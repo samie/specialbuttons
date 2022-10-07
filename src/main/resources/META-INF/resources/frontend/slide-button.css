@@ -1,5 +1,5 @@
 
-slide-button div.container {
+slide-button::part(container) {
     position: relative;
     display: flex;
     overflow: hidden;
@@ -10,7 +10,7 @@ slide-button div.container {
     user-select: none;
 }
 
-slide-button div.slider {
+slide-button::part(slider) {
     width: fit-content;
     position: relative;
     top: 2px;
@@ -25,11 +25,11 @@ slide-button div.slider {
     user-select: none;
 }
 
-slide-button div.slider:active {
+slide-button::part(slider)r:active {
     filter: brightness(1.3);
 }
 
-slide-button.not-active {
+slide-button:not([active="true"]) {
     opacity:0.5;
     filter: saturate(0%);
 }

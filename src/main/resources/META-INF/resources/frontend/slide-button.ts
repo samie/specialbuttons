@@ -1,10 +1,16 @@
-import { customElement, property, html, LitElement, TemplateResult } from 'lit-element';
+import { customElement, html, property, LitElement, TemplateResult } from 'lit-element';
 
 /** Custom button element.
  * 
  */
 @customElement('slide-button')
 export class SlideButtonElement extends LitElement {
+
+  private $server: any;
+
+  @property({ attribute: true, reflect: true }) active: boolean = true;
+
+  @property({ attribute: true, reflect: true }) caption: string | null = "";
 
   private dragging: boolean = false;
 
@@ -21,34 +27,34 @@ export class SlideButtonElement extends LitElement {
    * 
    */
   render(): TemplateResult {
-    return html`<div class='container'><div class='slider'>&#10095;</div></div>`;
+    return html`<div part='container'><div part='slider'>${this.caption} &#10095;</div></div>`;
   }
 
 
   firstUpdated(): void {
-    this.container = this.renderRoot.querySelector("div.container")
-    this.slider = this.renderRoot.querySelector("div.slider")
+    this.container = this.renderRoot.querySelector('div[part="container"]')
+    this.slider = this.renderRoot.querySelector('div[part="slider"]')
 
         // Listening for the mouse and touch events
-        this.renderRoot.addEventListener("mousemove", this.drag, false);
-        this.renderRoot.addEventListener("touchmove", this.drag, false);
-        this.renderRoot.addEventListener("mousedown", this.dragStart, false);
-        this.renderRoot.addEventListener("mouseup", this.dragEnd, false);
-        this.renderRoot.addEventListener("mouseleave", this.dragEnd, false);
-        this.renderRoot.addEventListener("touchstart", this.dragStart, false);
-        this.renderRoot.addEventListener("touchend", this.dragEnd, false);
-        this.renderRoot.addEventListener("contextmenu", this.dragEnd, false);
+        this.addEventListener('mousemove', this.drag, false);
+        this.addEventListener('touchmove', this.drag, false);
+        this.addEventListener('mousedown', this.dragStart, false);
+        this.addEventListener('mouseup', this.dragEnd, false);
+        this.addEventListener('mouseleave', this.dragEnd, false);
+        this.addEventListener('touchstart', this.dragStart, false);
+        this.addEventListener('touchend', this.dragEnd, false);
+        this.addEventListener('contextmenu', this.dragEnd, false);
   }
 
   dragStart(event: Event): void {
-    const e = event as TouchEvent;
+    const e = event as MouseEvent;
     // Start drag
     this.dragging = true;
-    if (this.slider) this.slider.style.transitionDuration = "0s";
+    this.slider!.style.transitionDuration = "0s";
     if (e.type === "touchstart") {
-      this.initialX = e.touches[0].clientX;
+      this.initialX = e.clientX;
     } else {
-      this.initialX = e.touches[0].clientX;
+      this.initialX = e.clientX;
     }
 
   };
@@ -56,29 +62,27 @@ export class SlideButtonElement extends LitElement {
   dragEnd(): void {
     // Stop dragging
     this.dragging = false;
-    if (this.slider)  {
-      this.slider.style.transition = "left cubic-bezier(0.175, 0.885, 0.32, 1.275)";
-      this.slider.style.transitionDuration = "200ms";
-      this.slider.style.left = "0px";
-    }
+    this.slider!.style.transition = "left cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+    this.slider!.style.transitionDuration = "200ms";
+    this.slider!.style.left = "0px";
   };
 
   drag(event: Event): void {
-    const e = event as TouchEvent;
+    const e = event as MouseEvent;
     if (this.dragging) {
       e.preventDefault();
       var currentX = (e.type === "touchmove") ?
-        e.touches[0].clientX - this.initialX : e.touches[0].clientX - this.initialX;
+        e.clientX - this.initialX : e.clientX - this.initialX;
       if (currentX < 0) currentX = 0;
 
-      if (this.slider && this.container && currentX + this.slider.offsetWidth > this.container.offsetWidth - 16) {
-        this.slider.style.transition = "left cubic-bezier(.67,-0.3,.61,.69)";
-        this.slider.style.transitionDuration = "200ms";
-        this.slider.style.left = "0px";
+      if (currentX + this.slider!.offsetWidth > this.container!.offsetWidth - 16) {
+        this.slider!.style.transition = "left cubic-bezier(.67,-0.3,.61,.69)";
+        this.slider!.style.transitionDuration = "200ms";
+        this.slider!.style.left = "0px";
         this.dragging = false;
-        setTimeout(function () { this.$server.afterSlideClick(); }, 100);
+        setTimeout(() => { this.$server.afterSlideClick(); }, 100);
       } else {
-        if (this.slider) this.slider.style.left = currentX + "px";
+        this.slider!.style.setProperty("left", currentX + "px", "important");
       }
     }
   }

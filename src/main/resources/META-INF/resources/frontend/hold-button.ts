@@ -1,31 +1,38 @@
 import { customElement, property, html, LitElement, TemplateResult } from 'lit-element';
 
-
 /** Custom button element.
  * 
  */
 @customElement('hold-button')
 export class HoldButtonElement extends LitElement {
 
-  @property({ attribute: true }) active: boolean = true;
+  private $server: any;
 
-  @property({ attribute: false }) holdtime: number = 1000;
+  @property({ attribute: true, reflect: true }) active: boolean = true;
 
-  @property({ attribute: true }) icon: string | null = null;
+  @property({ attribute: true, reflect: true }) caption: string | null = "";
 
-  private timer: any = null;
+  @property({ attribute: true, reflect: true }) holdtime: number = 1000;
 
-  private pressHoldEndTime: number = 0;
+  @property({ attribute: true, reflect: true }) icon: string | null = null;
 
+  private timerId: any = null;
+
+  private pressHoldEndTimeMs: number = 0;
+
+  private container: HTMLElement | null = null;
 
   firstUpdated() {
+
+    this.container = this.renderRoot.querySelector('div');
+
     // Listening for the mouse and touch events
-    this.renderRoot.addEventListener("mousedown", this.pressingDown);
-    this.renderRoot.addEventListener("mouseup", this.notPressingDown);
-    this.renderRoot.addEventListener("mouseleave", this.notPressingDown);
-    this.renderRoot.addEventListener("touchstart", this.pressingDown);
-    this.renderRoot.addEventListener("touchend", this.notPressingDown);
-    this.renderRoot.addEventListener("contextmenu", this.notPressingDown);
+    this.addEventListener('mousedown', this.down, false);
+    this.addEventListener('mouseup', this.up, false);
+    this.addEventListener('mouseleave', this.up, false);
+    this.addEventListener('touchstart', this.down, false);
+    this.addEventListener('touchend', this.up, false);
+    this.addEventListener('contextmenu', this.up, false);
   }
 
   /** Render the button.
@@ -35,37 +42,42 @@ export class HoldButtonElement extends LitElement {
    * 
    */
   render(): TemplateResult {
-    return html`<div class='content'><img class='icon' src="${this.icon}" /></div>`;
+    return html`<div part="content"><img part="icon" src="${this.icon}" /><span part="caption">${this.caption}</span</div>`;
   }
 
+
+  down(event: Event): void {
+    // Start the timer
+    this.container!.style.setProperty("transition-duration",this.holdtime +"ms", "important");
+    this.container?.setAttribute('part', 'content pressed');
+    this.pressHoldEndTimeMs = Date.now() + this.holdtime;
+    this.timerId = requestAnimationFrame(this._timer.bind(this));
+    event.preventDefault();
+  }
+
+  up(): void {
+    // Stop the timer
+    this.container!.style.setProperty("transition-duration","");
+    this.container?.setAttribute('part', 'content');
+    this.pressHoldEndTimeMs = 0;
+    cancelAnimationFrame(this.timerId);   
+  }
+
+
   _timer() {
-    if (this.holdtime > 0) {
-      if (Date.now() < this.pressHoldEndTime) {
-        this.timer = requestAnimationFrame(this.timer);
+    if (this.pressHoldEndTimeMs > 0) {
+      if (Date.now() < this.pressHoldEndTimeMs) {
+        // Hold still
+        this.timerId = requestAnimationFrame(this._timer.bind(this));
       } else {
-        this.holdtime = 0;
-        this.classList.add("endstate");
+        // Click
+        this.pressHoldEndTimeMs = 0;
+        this.container!.style.setProperty("transition-duration","");
+        this.container?.setAttribute('part', 'content ready');
         this.$server.afterHoldClick();
       }
     }
 
   }
-
-  pressingDown(event: Event): void {
-    // Start the timer
-    this.classList.add("animate");
-    this.pressHoldEndTime = Date.now() + this.holdtime;
-    requestAnimationFrame(this.timer);
-    event.preventDefault();
-  }
-
-  notPressingDown(): void {
-    // Stop the timer
-    this.classList.remove("animate");
-    this.classList.remove("endstate");
-    this.pressHoldEndTime = 0;
-    cancelAnimationFrame(this.timer);    
-  }
-
 
 }
