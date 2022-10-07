@@ -20,7 +20,7 @@ public abstract  class AbstractButton extends Component implements HasStyle, Has
         }
     }
 
-    Registration addClickListener(
+    public Registration addClickListener(
             ComponentEventListener<ClickEvent> listener) {
         if (this instanceof Component) {
             return ComponentUtil.addListener((Component) this, ClickEvent.class,
