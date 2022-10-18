@@ -6,8 +6,23 @@ import com.vaadin.flow.shared.Registration;
 public abstract  class AbstractButton extends Component implements HasStyle, HasSize{
 
 
+    private boolean enabled;
 
-    boolean enabled;
+
+    public AbstractButton() {
+    }
+
+    public AbstractButton(String caption, ComponentEventListener<ClickEvent> listener) {
+        setCaption(caption);
+    }
+
+    public AbstractButton(String caption) {
+        this();
+        setCaption(caption);
+    }
+    public void setCaption(String caption) {
+        getElement().setProperty("caption", caption);
+    }
 
     public static class ClickEvent extends ComponentEvent<AbstractButton> {
 
@@ -36,8 +51,6 @@ public abstract  class AbstractButton extends Component implements HasStyle, Has
         if (!isEnabled()) return;
         super.fireEvent(clickEvent);
     }
-
-
     public Registration addClickListener(
             ComponentEventListener<ClickEvent> listener) {
         if (this instanceof Component) {
