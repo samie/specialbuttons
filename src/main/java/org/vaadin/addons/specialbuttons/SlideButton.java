@@ -4,6 +4,9 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 
+/** A button that needs to slided left to right for a click.
+ *
+ */
 @JsModule("./slide-button.ts")
 @Tag("slide-button")
 @CssImport("./slide-button.css")
