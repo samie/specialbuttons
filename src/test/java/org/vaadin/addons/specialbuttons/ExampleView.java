@@ -22,7 +22,7 @@ public class ExampleView extends VerticalLayout {
         holdButton.setHeight("200px");
 
         holdButton.addClickListener(e -> {
-            Notification.show("Hold done: "+holdButton.isActive());
+            Notification.show("HoldButton click: "+holdButton.isActive());
             holdButton.setActive(!holdButton.isActive());
         });
 
@@ -40,12 +40,31 @@ public class ExampleView extends VerticalLayout {
         slideButton.setHeight("40px");
 
         slideButton.addClickListener(e -> {
-            Notification.show("Slide done: "+slideButton.isActive());
+            Notification.show("SlideButton click: "+slideButton.isActive());
             slideButton.setActive(!slideButton.isActive());
         });
         enableDisable = new Button("Enable/Disable", e -> slideButton.setEnabled(!slideButton.isEnabled()));
-
-
         add(new HorizontalLayout(slideButton, enableDisable));
+
+
+        // Cancellable button
+
+        CancellableButton cancellableButton = new CancellableButton("Activate mic");
+
+        cancellableButton.addClickListener(e -> {
+            Notification.show("CancellableButton done: "+slideButton.isActive());
+        });
+        enableDisable = new Button("Enable/Disable", e -> cancellableButton.setEnabled(!cancellableButton.isEnabled()));
+
+        Button delay = new Button("Default delay", e -> cancellableButton.setDelay(CancellableButton.DEFAULT_DELAY_SEC));
+        Button delay10 = new Button("10s delay", e -> cancellableButton.setDelay(10));
+        Button delay5 = new Button("5s delay", e -> cancellableButton.setDelay(5));
+        Button delay2 = new Button("2s delay", e -> cancellableButton.setDelay(2));
+        Button delay0 = new Button("0s delay", e -> cancellableButton.setDelay(0));
+        Button click = new Button("Click", e -> cancellableButton.clickWithDelay());
+        Button cancel = new Button("Cancel click", e -> cancellableButton.cancelClick());
+
+
+        add(new HorizontalLayout(cancellableButton, enableDisable, delay, delay0, delay2, delay5, delay10, click, cancel));
     }
 }

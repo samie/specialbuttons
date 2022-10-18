@@ -1,0 +1,6 @@
+cancellable-button {
+}
+
+cancellable-button[disabled] {
+  pointer-events: none;
+}
