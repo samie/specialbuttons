@@ -1,10 +1,9 @@
 package org.vaadin.addons.specialbuttons;
 
-import com.vaadin.flow.component.ClientCallable;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.shared.Registration;
 
 /** A button that the user can cancel within a grace period.
  *
@@ -53,17 +52,9 @@ public class CancellableButton extends AbstractButton {
      *            the Button click listener.
      */
     public CancellableButton(String caption, int delaySeconds,
-                             ComponentEventListener<ClickEvent> listener) {
+                             ComponentEventListener<TimeoutEvent> listener) {
         super(caption, listener);
         setDelay(delaySeconds);
-    }
-
-    /** Internal method called from the client side.
-     *
-     */
-    @ClientCallable
-    public void click() {
-        fireEvent(new ClickEvent(this, true));
     }
 
     /**
@@ -160,4 +151,24 @@ public class CancellableButton extends AbstractButton {
         getElement().callJsFunction("restartTimer");
     }
 
+
+    public Registration addTimeoutListener(ComponentEventListener<TimeoutEvent> listener) {
+        return addListener(TimeoutEvent.class, listener);
+    }
+
+    @DomEvent("timeout-event")
+    public static class TimeoutEvent extends SpecialClickEvent {
+
+        private boolean confirmClick = false;
+
+        public TimeoutEvent(Component source, boolean fromClient, @EventData("event.detail.confirm") boolean confirmClick) {
+            super(source, fromClient);
+            this.confirmClick = confirmClick;
+        }
+
+        public boolean isConfirmClick() {
+            return confirmClick;
+        }
+
+    }
 }

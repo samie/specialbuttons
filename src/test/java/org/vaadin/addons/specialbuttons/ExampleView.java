@@ -1,5 +1,6 @@
 package org.vaadin.addons.specialbuttons;
 
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -21,8 +22,8 @@ public class ExampleView extends VerticalLayout {
         holdButton.setWidth("200px");
         holdButton.setHeight("200px");
 
-        holdButton.addClickListener(e -> {
-            Notification.show("HoldButton click. Active: "+holdButton.isActive());
+        holdButton.addHoldListener(e -> {
+            Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName()+". Active: "+holdButton.isActive());
             holdButton.setActive(!holdButton.isActive());
         });
 
@@ -32,6 +33,7 @@ public class ExampleView extends VerticalLayout {
         Button start3 = new Button("Default delay", e -> holdButton.setHoldTime(HoldButton.DEFAULT_HOLD_TIME_MS));
         Button enableDisable = new Button("Enable/Disable", e -> holdButton.setEnabled(!holdButton.isEnabled()));
         add(new HorizontalLayout(holdButton,start,start1,start2,start3, enableDisable));
+        holdButton.addClickShortcut(Key.KEY_H);
 
         // Slide button
 
@@ -39,20 +41,23 @@ public class ExampleView extends VerticalLayout {
         slideButton.setWidth("400px");
         slideButton.setHeight("40px");
 
-        slideButton.addClickListener(e -> {
-            Notification.show("SlideButton click. Active: "+slideButton.isActive());
+        slideButton.addSlideListener(e -> {
+            Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName()+". Active: "+slideButton.isActive());
             slideButton.setActive(!slideButton.isActive());
         });
         enableDisable = new Button("Enable/Disable", e -> slideButton.setEnabled(!slideButton.isEnabled()));
         add(new HorizontalLayout(slideButton, enableDisable));
-
+        slideButton.addClickShortcut(Key.KEY_S);
 
         // Cancellable button
 
         CancellableButton cancellableButton = new CancellableButton("Activate mic");
 
+        cancellableButton.addTimeoutListener(e -> {
+            Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName());
+        });
         cancellableButton.addClickListener(e -> {
-            Notification.show("CancellableButton click");
+            Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName());
         });
         enableDisable = new Button("Enable/Disable", e -> cancellableButton.setEnabled(!cancellableButton.isEnabled()));
 
@@ -63,7 +68,7 @@ public class ExampleView extends VerticalLayout {
         Button delay0 = new Button("0s delay", e -> cancellableButton.setDelay(0));
         Button click = new Button("Click", e -> cancellableButton.clickWithDelay());
         Button cancel = new Button("Cancel click", e -> cancellableButton.cancelClick());
-
+        cancellableButton.addClickShortcut(Key.ENTER);
 
         add(new HorizontalLayout(cancellableButton, enableDisable, delay, delay0, delay2, delay5, delay10, click, cancel));
     }

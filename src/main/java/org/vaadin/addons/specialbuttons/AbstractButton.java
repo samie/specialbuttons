@@ -11,7 +11,7 @@ public abstract  class AbstractButton extends Component implements HasStyle, Has
     public AbstractButton() {
     }
 
-    public AbstractButton(String caption, ComponentEventListener<ClickEvent> listener) {
+    public AbstractButton(String caption, ComponentEventListener<? extends SpecialClickEvent> listener) {
         setCaption(caption);
     }
 
@@ -23,19 +23,12 @@ public abstract  class AbstractButton extends Component implements HasStyle, Has
         getElement().setProperty("caption", caption);
     }
 
-    public static class ClickEvent extends ComponentEvent<AbstractButton> {
+    public static class SpecialClickEvent extends ClickEvent<AbstractButton> {
 
-        /**
-         * Creates a new event using the given source and indicator whether the
-         * event originated from the client side or the server side.
-         *
-         * @param source     the source component
-         * @param fromClient <code>true</code> if the event originated from the client
-         *                   side, <code>false</code> otherwise
-         */
-        public ClickEvent(AbstractButton source, boolean fromClient) {
-            super(source, fromClient);
+        protected SpecialClickEvent(Component source, boolean fromClient) {
+            super(source, fromClient, -1, -1, -1, -1, 1, -1, false, false, false, false);
         }
+
     }
 
     public boolean isEnabled() {
@@ -46,7 +39,7 @@ public abstract  class AbstractButton extends Component implements HasStyle, Has
         getElement().setEnabled(enabled);
     }
 
-    protected void fireEvent(ClickEvent clickEvent) {
+    protected void fireSpecialClickEvent(SpecialClickEvent clickEvent) {
         if (!isEnabled()) return;
         super.fireEvent(clickEvent);
     }

@@ -6,8 +6,6 @@ import { customElement, html, property, LitElement, TemplateResult } from 'lit-e
 @customElement('slide-button')
 export class SlideButtonElement extends LitElement {
 
-  private $server: any;
-
   @property({ attribute: true, reflect: true }) active: boolean = true;
 
   @property({ attribute: true, reflect: true }) caption: string | null = "";
@@ -80,7 +78,9 @@ export class SlideButtonElement extends LitElement {
         this.slider!.style.transitionDuration = "200ms";
         this.slider!.style.left = "0px";
         this.dragging = false;
-        setTimeout(() => { this.$server.afterSlideClick(); }, 100);
+        setTimeout(() => { 
+          this.dispatchEvent(new CustomEvent('slide-event', {detail: {} } ));
+        }, 100);
       } else {
         this.slider!.style.setProperty("left", currentX + "px", "important");
       }

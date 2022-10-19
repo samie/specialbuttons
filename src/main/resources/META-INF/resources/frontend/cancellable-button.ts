@@ -6,8 +6,6 @@ import { customElement, property, html, LitElement, TemplateResult } from 'lit-e
 @customElement('cancellable-button')
 export class CancellableButtonElement extends LitElement {
 
-  private $server: any;
-
   @property({ attribute: true, reflect: true }) caption: string | null = "";
 
   @property({ attribute: true, reflect: true }) icon: string | null = null;
@@ -43,7 +41,7 @@ export class CancellableButtonElement extends LitElement {
           // No cancel click within grace period, click 
           // Or if second click was supposed to confirm, do nothing         
           if (!this.secondClickConfirms) {
-          this.$server.click();         
+            this.dispatchEvent(new CustomEvent('timeout-event',  {detail: { confirm: this.secondClickConfirms } } ));         
         }
       }
 
@@ -72,7 +70,7 @@ export class CancellableButtonElement extends LitElement {
 
   _buttonClick(): void {
     if (this.secondClickConfirms || this.delay <= 0) {
-      this.$server.click();      
+      this.dispatchEvent(new CustomEvent('timeout-event',  {detail: { confirm: this.secondClickConfirms } } ));
     } else if (this.timerId) {
       this.cancelClick();
     } else if (!this.timerId) {

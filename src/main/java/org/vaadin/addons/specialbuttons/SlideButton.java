@@ -3,6 +3,7 @@ package org.vaadin.addons.specialbuttons;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.shared.Registration;
 
 /** A button that needs to slided left to right for a click.
  *
@@ -17,11 +18,6 @@ public class SlideButton  extends AbstractButton {
         setActive(true);
     }
 
-    @ClientCallable
-    public void afterSlideClick() {
-        fireEvent(new ClickEvent(this, true));
-    }
-
     public SlideButton(String caption) {
         this();
         setCaption(caption);
@@ -30,7 +26,6 @@ public class SlideButton  extends AbstractButton {
     public SlideButton(String caption, int holdMs) {
         this(caption);
     }
-
 
     public String getCaption() {
         return getElement().getProperty("caption");
@@ -47,5 +42,15 @@ public class SlideButton  extends AbstractButton {
 
     public void setActive(boolean active) {
         getElement().setProperty("active",active);
+    }
+
+    public Registration addSlideListener(ComponentEventListener<SlideEvent> listener) {
+        return addListener(SlideEvent.class, listener);
+    }
+    @DomEvent("slide-event")
+    public static class SlideEvent extends SpecialClickEvent {
+        public SlideEvent(SlideButton slideButton, boolean fromClient) {
+            super(slideButton, fromClient);
+        }
     }
 }

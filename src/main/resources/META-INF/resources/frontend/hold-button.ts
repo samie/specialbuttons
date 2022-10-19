@@ -6,8 +6,6 @@ import { customElement, property, html, LitElement, TemplateResult } from 'lit-e
 @customElement('hold-button')
 export class HoldButtonElement extends LitElement {
 
-  private $server: any;
-
   @property({ attribute: true, reflect: true }) active: boolean = true;
 
   @property({ attribute: true, reflect: true }) caption: string | null = "";
@@ -70,11 +68,11 @@ export class HoldButtonElement extends LitElement {
         // Hold still
         this.timerId = requestAnimationFrame(this._timer.bind(this));
       } else {
-        // Click
+        // Hold event
         this.pressHoldEndTimeMs = 0;
         this.container!.style.setProperty("transition-duration","");
         this.container?.setAttribute('part', 'content ready');
-        this.$server.afterHoldClick();
+        this.dispatchEvent(new CustomEvent('hold-event',  {detail: {} } ));
       }
     }
 

@@ -4,7 +4,7 @@ import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.server.AbstractStreamResource;
-
+import com.vaadin.flow.shared.Registration;
 
 
 /** A button that needs to be pressed for given period before click event is triggered.
@@ -21,11 +21,6 @@ public class HoldButton extends AbstractButton {
     public HoldButton() {
         setHoldTime(DEFAULT_HOLD_TIME_MS);
         setActive(true);
-    }
-
-    @ClientCallable
-    public void afterHoldClick() {
-        fireEvent(new ClickEvent(this, true));
     }
 
     public HoldButton(String caption) {
@@ -64,6 +59,16 @@ public class HoldButton extends AbstractButton {
         getElement().setProperty("active", active);
     }
 
+    public Registration addHoldListener(ComponentEventListener<HoldClickEvent> listener) {
+        return addListener(HoldClickEvent.class, listener);
+    }
+    @DomEvent("hold-event")
+    public static class HoldClickEvent extends SpecialClickEvent {
+
+        public HoldClickEvent(HoldButton source, boolean fromClient) {
+            super(source, fromClient);
+        }
+    }
 
 }
 
