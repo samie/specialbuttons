@@ -22,7 +22,7 @@ public class ExampleView extends VerticalLayout {
         holdButton.setHeight("200px");
 
         holdButton.addClickListener(e -> {
-            Notification.show("HoldButton click: "+holdButton.isActive());
+            Notification.show("HoldButton click. Active: "+holdButton.isActive());
             holdButton.setActive(!holdButton.isActive());
         });
 
@@ -40,7 +40,7 @@ public class ExampleView extends VerticalLayout {
         slideButton.setHeight("40px");
 
         slideButton.addClickListener(e -> {
-            Notification.show("SlideButton click: "+slideButton.isActive());
+            Notification.show("SlideButton click. Active: "+slideButton.isActive());
             slideButton.setActive(!slideButton.isActive());
         });
         enableDisable = new Button("Enable/Disable", e -> slideButton.setEnabled(!slideButton.isEnabled()));
@@ -52,7 +52,7 @@ public class ExampleView extends VerticalLayout {
         CancellableButton cancellableButton = new CancellableButton("Activate mic");
 
         cancellableButton.addClickListener(e -> {
-            Notification.show("CancellableButton done: "+slideButton.isActive());
+            Notification.show("CancellableButton click");
         });
         enableDisable = new Button("Enable/Disable", e -> cancellableButton.setEnabled(!cancellableButton.isEnabled()));
 
