@@ -3,9 +3,8 @@ package org.vaadin.addons.specialbuttons;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.server.AbstractStreamResource;
-import com.vaadin.flow.shared.Registration;
+
 
 
 /** A button that needs to be pressed for given period before click event is triggered.
