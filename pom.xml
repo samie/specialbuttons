@@ -7,7 +7,7 @@
     <artifactId>specialbuttons</artifactId>
     <name>SpecialButtons</name>
     <description>Collection of specialized Buttons for Vaadin</description>
-    <version>4.0.1-SNAPSHOT</version>
+    <version>4.1.0</version>
     <packaging>jar</packaging>
     <organization>
         <name>Sami Ekblad</name>
