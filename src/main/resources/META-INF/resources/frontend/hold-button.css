@@ -23,8 +23,9 @@ hold-button::part(content) {
 }
 
 hold-button::part(icon) {
-    width: 100px;
-    height: 100px;
+    width: 50%;
+    height: 50%;
+    margin: 25%;
 }
 
 hold-button::part(content pressed) {
