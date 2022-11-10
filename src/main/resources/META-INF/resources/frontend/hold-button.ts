@@ -40,7 +40,11 @@ export class HoldButtonElement extends LitElement {
    * 
    */
   render(): TemplateResult {
-    return html`<div part="content"><img part="icon" src="${this.icon}" /><span part="caption">${this.caption}</span</div>`;
+    return html`<div part="content">
+        ${this.icon ? html`<img part="icon" src="${this.icon}" />` : html``}
+        ${this.caption ? html`<span part="caption">${this.caption}</span>` : html``}
+        <slot></slot>
+      </div>`;
   }
 
 

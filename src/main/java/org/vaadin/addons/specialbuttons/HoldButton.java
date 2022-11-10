@@ -3,6 +3,7 @@ package org.vaadin.addons.specialbuttons;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.server.AbstractStreamResource;
 import com.vaadin.flow.shared.Registration;
 
@@ -35,10 +36,15 @@ public class HoldButton extends AbstractButton {
     }
 
     public void setIcon(AbstractStreamResource resource) {
+        getElement().removeAllChildren();
         getElement().setAttribute("icon", resource);
     }
 
-
+    public void setIcon(Icon icon) {
+        getElement().removeAttribute("icon");
+        getElement().removeAllChildren();
+        getElement().appendChild(icon.getElement());
+    }
     public void setCaption(String caption) {
         getElement().setProperty("buttonCaption", caption);
     }

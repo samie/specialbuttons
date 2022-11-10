@@ -1,11 +1,15 @@
 package org.vaadin.addons.specialbuttons;
 
+import com.sun.tools.javac.util.List;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.lumo.Lumo;
 
 /** Test view for manual and automated testing of the component.
  *
@@ -19,12 +23,19 @@ public class ExampleView extends VerticalLayout {
 
         HoldButton holdButton = new HoldButton(null, 2000);
         holdButton.setIcon(new ClassResource(this, "mic.png"));
-        holdButton.setWidth("200px");
-        holdButton.setHeight("200px");
+
+        HoldButton holdButton2 = new HoldButton(null, 2000);
+        holdButton2.setIcon(new Icon(VaadinIcon.POWER_OFF));
+        holdButton2.setWidth("200px");
+        holdButton2.setHeight("200px");
 
         holdButton.addHoldListener(e -> {
             Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName()+". Active: "+holdButton.isActive());
             holdButton.setActive(!holdButton.isActive());
+        });
+        holdButton2.addHoldListener(e -> {
+            Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName()+". Active: "+holdButton2.isActive());
+            holdButton2.setActive(!holdButton2.isActive());
         });
 
         Button start = new Button("3s delay", e -> holdButton.setHoldTime(3000));
@@ -32,7 +43,8 @@ public class ExampleView extends VerticalLayout {
         Button start2 = new Button("0s delay", e -> holdButton.setHoldTime(0));
         Button start3 = new Button("Default delay", e -> holdButton.setHoldTime(HoldButton.DEFAULT_HOLD_TIME_MS));
         Button enableDisable = new Button("Enable/Disable", e -> holdButton.setEnabled(!holdButton.isEnabled()));
-        add(new HorizontalLayout(holdButton,start,start1,start2,start3, enableDisable));
+        enableDisable.setIcon(VaadinIcon.POWER_OFF.create());
+        add(new HorizontalLayout(holdButton,holdButton2,start,start1,start2,start3, enableDisable));
         holdButton.addClickShortcut(Key.KEY_H);
 
         // Slide button

@@ -1,3 +1,8 @@
+html {
+  --hold-button-color: rgb(255,0,0);
+  --hold-button-background-color: rgba(255,0,0,.3);
+}
+
 hold-button {
   display: flex;
   align-items: center;
@@ -10,9 +15,8 @@ hold-button[disabled] {
 }
 
 hold-button::part(content) {
+  display: flex;
   cursor: pointer;
-  width: 50%;
-  height: 50%;
   text-align: center;
   vertical-align: middle;
   border: 10px solid #FFF;
@@ -22,7 +26,9 @@ hold-button::part(content) {
   transform: scale(1);
 }
 
-hold-button::part(icon) {
+hold-button::part(icon),
+hold-button>iron-icon {
+    color: var(--hold-button-color);
     width: 50%;
     height: 50%;
     margin: 25%;
@@ -37,8 +43,8 @@ hold-button::part(content ready) {
 }
 
 hold-button::part(content) {
-  border-color: red;
-  background-color:  rgba(255,0,0,.3);;
+  border-color: var(--hold-button-color);
+  background-color: var(--hold-button-background-color);;
 }
 
 
