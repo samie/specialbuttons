@@ -3,6 +3,7 @@ package org.vaadin.addons.specialbuttons;
 import com.sun.tools.javac.util.List;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -42,10 +43,15 @@ public class ExampleView extends VerticalLayout {
         Button start1 = new Button("0.5s delay", e -> holdButton.setHoldTime(500));
         Button start2 = new Button("0s delay", e -> holdButton.setHoldTime(0));
         Button start3 = new Button("Default delay", e -> holdButton.setHoldTime(HoldButton.DEFAULT_HOLD_TIME_MS));
-        Button enableDisable = new Button("Enable/Disable", e -> holdButton.setEnabled(!holdButton.isEnabled()));
-        enableDisable.setIcon(VaadinIcon.POWER_OFF.create());
-        add(new HorizontalLayout(holdButton,holdButton2,start,start1,start2,start3, enableDisable));
+        Button enableDisable = new Button("Enable/Disable",
+                new Icon(VaadinIcon.POWER_OFF),
+                e -> holdButton.setEnabled(!holdButton.isEnabled()));
         holdButton.addClickShortcut(Key.KEY_H);
+        List.of(enableDisable,start,start1,start2,start3).forEach(b-> b.setThemeName("tertiary"));
+        add(new H2("HoldButton with image"));
+        add(new HorizontalLayout(holdButton,enableDisable,start,start1,start2,start3));
+        add(new H2("HoldButton with icon"));
+        add(holdButton2);
 
         // Slide button
 
@@ -57,21 +63,26 @@ public class ExampleView extends VerticalLayout {
             Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName()+". Active: "+slideButton.isActive());
             slideButton.setActive(!slideButton.isActive());
         });
-        enableDisable = new Button("Enable/Disable", e -> slideButton.setEnabled(!slideButton.isEnabled()));
+        enableDisable = new Button("Enable/Disable",
+                new Icon(VaadinIcon.POWER_OFF),
+                e -> slideButton.setEnabled(!slideButton.isEnabled()));
+        add(new H2("SlideButton with text"));
         add(new HorizontalLayout(slideButton, enableDisable));
+        List.of(enableDisable).forEach(b-> b.setThemeName("tertiary"));
         slideButton.addClickShortcut(Key.KEY_S);
 
         // Cancellable button
 
         CancellableButton cancellableButton = new CancellableButton("Activate mic");
-
         cancellableButton.addTimeoutListener(e -> {
             Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName());
         });
         cancellableButton.addClickListener(e -> {
             Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName());
         });
-        enableDisable = new Button("Enable/Disable", e -> cancellableButton.setEnabled(!cancellableButton.isEnabled()));
+        enableDisable = new Button("Enable/Disable",
+                new Icon(VaadinIcon.POWER_OFF),
+                e -> cancellableButton.setEnabled(!cancellableButton.isEnabled()));
 
         Button delay = new Button("Default delay", e -> cancellableButton.setDelay(CancellableButton.DEFAULT_DELAY_SEC));
         Button delay10 = new Button("10s delay", e -> cancellableButton.setDelay(10));
@@ -80,8 +91,9 @@ public class ExampleView extends VerticalLayout {
         Button delay0 = new Button("0s delay", e -> cancellableButton.setDelay(0));
         Button click = new Button("Click", e -> cancellableButton.clickWithDelay());
         Button cancel = new Button("Cancel click", e -> cancellableButton.cancelClick());
+        List.of(enableDisable,delay,delay10,delay5,delay2, delay0, click, cancel).forEach(b-> b.setThemeName("tertiary"));
         cancellableButton.addClickShortcut(Key.ENTER);
-
+        add(new H2("CancellableButton with text"));
         add(new HorizontalLayout(cancellableButton, enableDisable, delay, delay0, delay2, delay5, delay10, click, cancel));
     }
 }
