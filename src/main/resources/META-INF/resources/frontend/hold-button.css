@@ -1,5 +1,6 @@
 html {
   --hold-button-color: rgb(255,0,0);
+  --hold-button-scale: 1.5;
   --hold-button-background-color: rgba(255,0,0,.3);
 }
 
@@ -35,7 +36,7 @@ hold-button>iron-icon {
 }
 
 hold-button::part(content pressed) {
-  transform: scale(1.5);
+  transform: scale(var(--hold-button-scale));
 }
 
 hold-button::part(content ready) {
@@ -43,6 +44,7 @@ hold-button::part(content ready) {
 }
 
 hold-button::part(content) {
+  scale: calc(0.9/var(--hold-button-scale));
   border-color: var(--hold-button-color);
   background-color: var(--hold-button-background-color);;
 }
