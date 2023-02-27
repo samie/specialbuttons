@@ -1,4 +1,4 @@
-import { customElement, property, html, LitElement, TemplateResult } from 'lit-element';
+import { customElement, property, html, LitElement, TemplateResult,css } from 'lit-element';
 
 /** Custom button element.
  * 
@@ -18,6 +18,14 @@ export class CancellableButtonElement extends LitElement {
 
   private timerId: any = null;
 
+  static get styles() {
+    return css`
+    [part="button"] {
+      display: flex;
+    }`;
+  }
+
+
   firstUpdated() {
   }
 
@@ -28,7 +36,7 @@ export class CancellableButtonElement extends LitElement {
    * 
    */
   render(): TemplateResult {
-    return html`<vaadin-button icon="${this.icon}" @click="${ () => this._buttonClick()}">${this.caption}${this.timerId ? this._getTimeText():""}</vaadin-button>`;
+    return html`<vaadin-button icon="${this.icon}" part="button" @click="${ () => this._buttonClick()}">${this.caption}${this.timerId ? this._getTimeText():""}</vaadin-button>`;
   }
 
   _checkTimer() {
