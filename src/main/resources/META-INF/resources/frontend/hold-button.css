@@ -9,6 +9,7 @@ hold-button {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  aspect-ratio: 1;
 }
 
 hold-button[disabled] {
