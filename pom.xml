@@ -14,7 +14,7 @@
     </organization>
 
     <properties>
-        <vaadin.version>14.8.18</vaadin.version>
+        <vaadin.version>14.9.2</vaadin.version>
 
         <!-- ZIP Manifest fields -->
         <Implementation-Version>${project.version}</Implementation-Version>
