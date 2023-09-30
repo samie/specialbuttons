@@ -5,6 +5,8 @@
 This addon implements some specialized buttons: 
 * HoldButton - a Button that needs to be pressed for a specified time.
 * SlideButton - a Button simulating "swipe to unlock" style.
+* DelayedButton - a Button that becomes active only after a delay. Shows a countdown in caption.
+* CancellableButton - a Button that you can cancel during given period. Shows a countdown in caption.
 
 ## Development instructions 
 
