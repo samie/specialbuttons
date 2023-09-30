@@ -14,7 +14,7 @@
     </organization>
 
     <properties>
-        <vaadin.version>14.9.2</vaadin.version>
+        <vaadin.version>14.10.7</vaadin.version>
 
         <!-- ZIP Manifest fields -->
         <Implementation-Version>${project.version}</Implementation-Version>
@@ -170,7 +170,15 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
                 <configuration>
                 </configuration>
             </plugin>
@@ -219,6 +227,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.6.0</version>
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
@@ -237,6 +246,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.0</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -250,6 +260,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.6.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -373,6 +384,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.3.1</version>
                         <executions>
                             <execution>
                                 <!-- Since the view class is defined in test, after compilation copy
