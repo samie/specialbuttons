@@ -48,6 +48,13 @@ export class HoldButtonElement extends LitElement {
   }
 
 
+  updated(changedProperties: Map<string, any>) {
+    // Stop the loading animation if the button is not active anymore
+    if (changedProperties.has('active') && this.container?.getAttribute('part') === 'content ready') {
+      this.container?.setAttribute('part', 'content');
+    }
+  }
+
   down(event: Event): void {
     // Start the timer
     this.container!.style.setProperty("transition-duration",this.holdtime +"ms", "important");
@@ -60,9 +67,12 @@ export class HoldButtonElement extends LitElement {
   up(): void {
     // Stop the timer
     this.container!.style.setProperty("transition-duration","");
+    if (this.container?.getAttribute('part') === 'content ready') {
+      return;
+    }
     this.container?.setAttribute('part', 'content');
     this.pressHoldEndTimeMs = 0;
-    cancelAnimationFrame(this.timerId);   
+    cancelAnimationFrame(this.timerId);
   }
 
 

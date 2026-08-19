@@ -1,0 +1,43 @@
+/* Example: replace the default dashed loading indicator with a spinning arc.
+ * Add class="example" to the hold-button element in Java to activate.
+ */
+/*
+hold-button::part(content ready) {
+  animation: hold-loading 1s linear infinite;
+}
+
+@keyframes hold-loading {
+  from {
+    border-width: 10px 3px 3px 3px;
+    transform: rotate(0deg);
+  }
+  to {
+    border-width: 10px 3px 3px 3px;
+    transform: rotate(360deg);
+  }
+}
+*/
+
+/* Example: preview the upcoming state using dashed border.
+ * Active buttons show inactive colors (grey/desaturated), inactive show active colors (red).
+ * The dashed border signals that this is the next state, not the current one.
+ */
+/* */
+hold-button[active="true"]::part(content ready) {
+  filter: saturate(0%);
+  opacity: 0.5;
+}
+
+hold-button:not([active="true"])::part(content ready) {
+  border-color: var(--hold-button-color) !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Example: keep the dashed indicator but use a custom color. */
+/*
+hold-button::part(content ready) {
+  border-color: royalblue !important;
+}
+*/
+

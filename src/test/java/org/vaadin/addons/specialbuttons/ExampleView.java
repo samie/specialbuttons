@@ -2,6 +2,7 @@ package org.vaadin.addons.specialbuttons;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -16,18 +17,20 @@ import com.vaadin.flow.theme.material.Material;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /** Test view for manual and automated testing of the component.
  *
  */
 @Route("")
 @Theme(Material.class)
+@StyleSheet("context://VAADIN/static/demo/test.css")
 public class ExampleView extends VerticalLayout {
 
-
+    static{
+        System.err.println("java.home=" + System.getProperty("java.home"));
+        System.err.println("os.arch=" + System.getProperty("os.arch"));
+    }
     public static class Item {
         private LocalDateTime dateTime;
 
@@ -45,9 +48,11 @@ public class ExampleView extends VerticalLayout {
         // Hold button
         HoldButton holdButton = new HoldButton(null, 2000);
         holdButton.setIcon(new ClassResource(this, "mic.png"));
+        holdButton.addClassName("example");
 
         HoldButton holdButton2 = new HoldButton(null, 2000);
         holdButton2.setIcon(new Icon(VaadinIcon.POWER_OFF));
+        holdButton2.addClassName("example");
         holdButton2.setWidth("200px");
         holdButton2.setHeight("200px");
 
@@ -67,9 +72,20 @@ public class ExampleView extends VerticalLayout {
 
         holdButton.addHoldListener(e -> {
             Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName()+". Active: "+holdButton.isActive());
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
             holdButton.setActive(!holdButton.isActive());
         });
         holdButton2.addHoldListener(e -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+
             Notification.show(e.getSource().getClass()+": "+e.getClass().getSimpleName()+". Active: "+holdButton2.isActive());
             holdButton2.setActive(!holdButton2.isActive());
         });

@@ -41,7 +41,7 @@ hold-button::part(content pressed) {
 }
 
 hold-button::part(content ready) {
-  border-color: white !important;
+  border-style: dotted;
 }
 
 hold-button::part(content) {
