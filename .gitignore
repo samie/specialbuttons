@@ -2,3 +2,9 @@ target
 *.iml
 .idea
 
+node_modules
+package.json
+tsconfig.json
+types.d.ts
+webpack.config.js
+webpack.generated.js
