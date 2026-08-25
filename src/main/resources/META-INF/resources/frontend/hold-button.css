@@ -17,23 +17,28 @@ hold-button[disabled] {
 }
 
 hold-button::part(content) {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  text-align: center;
-  vertical-align: middle;
-  border: 10px solid #FFF;
+  border: 10px solid var(--hold-button-color);
   border-radius: 50%;
+  background-color: var(--hold-button-background-color);
+  scale: calc(0.9 / var(--hold-button-scale));
   transition: transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition-duration: 200ms;
   transform: scale(1);
 }
 
 hold-button::part(icon),
-hold-button>iron-icon {
-    color: var(--hold-button-color);
-    width: 50%;
-    height: 50%;
-    margin: 25%;
+hold-button > iron-icon {
+  color: var(--hold-button-color);
+  width: 50%;
+  height: 50%;
+  margin: 0;
 }
 
 hold-button::part(content pressed) {
@@ -44,14 +49,7 @@ hold-button::part(content ready) {
   border-style: dotted;
 }
 
-hold-button::part(content) {
-  scale: calc(0.9/var(--hold-button-scale));
-  border-color: var(--hold-button-color);
-  background-color: var(--hold-button-background-color);;
-}
-
-
 hold-button:not([active="true"])::part(content) {
-    opacity:0.5;
-    filter: saturate(0%);
+  opacity: 0.5;
+  filter: saturate(0%);
 }
